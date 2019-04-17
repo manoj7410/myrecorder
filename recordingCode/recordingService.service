@@ -1,0 +1,15 @@
+[Unit]
+Description=Record From Cam
+Wants=network-online.target
+After=network-online.target
+Wants=systemd-timesyncd.service
+After=systemd-timesyncd.service
+
+[Service]
+Environment=DISPLAY=:0
+Type=simple
+Restart=always
+User=manoj
+ExecStart=/usr/bin/python -u /home/manoj/recordingCode/recordwithcv2.py
+[Install]
+WantedBy=multi-user.target
