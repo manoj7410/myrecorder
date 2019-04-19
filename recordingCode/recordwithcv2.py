@@ -5,18 +5,17 @@ import datetime
 import os
 cwd = os.getcwd()
 cap = cv2.VideoCapture(0)
+break_flag = 0
+fourcc = cv2.VideoWriter_fourcc(*'XVID')
 while True:
-    if cap==True:
-        print "Camera is connected"
-    else:
-        print "Camera is not connected. Exiting!!"
+    if break_flag == 1:
+        print "Exiting main loop"
         break
     # Define the codec and create VideoWriter object
     currentTime = datetime.datetime.now()
     #Concat CWD and Timestamp to make it generic
     fileName = "{0}/output{1}.avi".format(cwd,currentTime) 
     fileName = fileName.replace(" ","") #Remove Spaces from Timestamp
-    fourcc = cv2.VideoWriter_fourcc(*'XVID')
     frame_counter = 0
     out = cv2.VideoWriter(fileName,fourcc, 25.0, (640,480))
     while frame_counter <= 3000:
@@ -30,6 +29,7 @@ while True:
             if frame_counter == 3000:
                 out.release()
         else:
+            break_flag = 1
             break
 # Release everything if job is finished
 cap.release()
