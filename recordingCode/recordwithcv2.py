@@ -3,7 +3,10 @@ import cv2
 from time import sleep
 import datetime
 import os
-cwd = os.getcwd()
+import os.path
+#cwd = os.getcwd()
+cwd="/home/manoj/recordingCode"
+print "CurrentDirectory = %s"%cwd
 cap = cv2.VideoCapture(0)
 break_flag = 0
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
@@ -16,6 +19,8 @@ while True:
     #Concat CWD and Timestamp to make it generic
     fileName = "{0}/output{1}.avi".format(cwd,currentTime) 
     fileName = fileName.replace(" ","") #Remove Spaces from Timestamp
+    fileName = fileName.replace(":","") #Remove : from Timestamp
+    print "FILENAME=%s"%fileName
     frame_counter = 0
     out = cv2.VideoWriter(fileName,fourcc, 25.0, (640,480))
     while frame_counter <= 3000:
